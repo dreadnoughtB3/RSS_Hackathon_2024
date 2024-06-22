@@ -19,7 +19,7 @@ export async function POST(request:NextRequest) {
     if(!user){
       return NextResponse.json({message:"ユーザーが存在しません",flag:false})
     }
-    const sended_password = crypto.createHash('sha256').update(body.pass).digest('hex')
+    const sended_password = crypto.createHash('sha256').update(body.password).digest('hex')
     if(user.hashed_password !== sended_password){
       return NextResponse.json({message:"パスワードが間違っています",flag:false})
     }
@@ -35,7 +35,7 @@ export async function POST(request:NextRequest) {
     .setExpirationTime("1d")
     .sign(secretkey);
 
-    return NextResponse.json({message: "ログイン成功", flag: true, token: token})
+    return NextResponse.json({message: "ログイン成功", flag: true, TOKEN: token})
   } catch (error) {
     return NextResponse.json({message:"ログイン失敗", flg:false})
   } finally {

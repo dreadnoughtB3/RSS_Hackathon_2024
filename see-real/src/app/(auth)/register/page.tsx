@@ -1,4 +1,4 @@
-'use client'; // app routerでのクライアントサイドコードのための指示
+'use client';
 
 import React, { useState } from 'react';
 import RegisterForm from '@/app/components/RegisterForm';
@@ -8,7 +8,6 @@ const RegisterPage: React.FC = () => {
 
   const handleFormSubmit = (data: { name: string; email: string; password: string }) => {
     setFormData(data);
-    // フォームのデータを処理するためのコードを追加できます。
     console.log('フォームデータ:', data);
   };
 
