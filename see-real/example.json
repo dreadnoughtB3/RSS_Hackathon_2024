@@ -1,0 +1,95 @@
+[
+    {
+        "name": "山田 太郎",
+        "contact": {
+            "email": "taro.yamada@example.com"
+        },
+        "profile": "10年以上の経験を持つソフトウェアエンジニア。バックエンドとフロントエンドの開発に精通し、DevOpsにも強みを持つ。",
+        "skills": [
+            {
+                "name": "JavaScript",
+                "description": "Angularを使用したフロントエンド開発において豊富な経験があります。"
+            },
+            {
+                "name": "Python",
+                "description": "Djangoを使用したウェブアプリケーションの開発やデータ処理の自動化に精通しています。"
+            },
+            {
+                "name": "Java",
+                "description": "エンタープライズアプリケーションの開発において、多くのプロジェクトで使用しました。"
+            },
+            {
+                "name": "C#",
+                "description": "ASP.NETを使用したウェブアプリケーションの開発経験があります。"
+            },
+            {
+                "name": "Ruby",
+                "description": "Ruby on Railsを使用したプロジェクトでの開発経験があります。"
+            }
+        ],
+        "frameworks": [
+            {
+                "name": "Django",
+                "description": "バックエンド開発で使用。多くのウェブアプリケーションの開発において主要なフレームワーク。"
+            },
+            {
+                "name": "Ruby on Rails",
+                "description": "迅速なプロトタイピングと開発に使用。中小規模のプロジェクトでの経験あり。"
+            }
+        ]
+    },
+    {
+        "name": "鈴木 一郎",
+        "contact": {
+            "email": "ichiro.suzuki@example.com"
+        },
+        "profile": "8年のソフトウェア開発経験。主にフロントエンド開発を担当し、モバイルアプリの開発にも携わる。",
+        "skills": [
+            {
+                "name": "React",
+                "description": "SPA開発におけるリッチなユーザー体験の提供に貢献。"
+            },
+            {
+                "name": "Swift",
+                "description": "iOSアプリの開発で実績あり。"
+            },
+            {
+                "name": "Kotlin",
+                "description": "Androidアプリの開発経験多数。"
+            }
+        ],
+        "frameworks": [
+            {
+                "name": "React Native",
+                "description": "クロスプラットフォームモバイルアプリ開発に使用。"
+            }
+        ]
+    },
+    {
+        "name": "佐藤 次郎",
+        "contact": {
+            "email": "jiro.sato@example.com"
+        },
+        "profile": "5年の経験を持つバックエンドエンジニア。データベース管理とシステムインテグレーションの専門家。",
+        "skills": [
+            {
+                "name": "SQL",
+                "description": "データベースの設計と最適化に長けています。"
+            },
+            {
+                "name": "Go",
+                "description": "高性能なAPIサーバの構築に使用。"
+            },
+            {
+                "name": "PHP",
+                "description": "Webサイトのバックエンド開発に広く用いています。"
+            }
+        ],
+        "frameworks": [
+            {
+                "name": "Laravel",
+                "description": "PHPでの高速開発に役立つフレームワーク。"
+            }
+        ]
+    }
+]
