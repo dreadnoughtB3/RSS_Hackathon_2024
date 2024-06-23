@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from '@/app/lib/Prisma';
+import { checkPost } from "@/app/lib/checkPost";
 
 export async function GET(request: NextRequest){
   prisma.$connect
@@ -21,12 +22,14 @@ export async function POST(request: NextRequest){
   const req = await request.json();
 
   try {
-    await prisma.post.create({
+    const post_data = await prisma.post.create({
       data: {
         user_id: req.user_id,
         body: req.body,
       }
     })
+
+    checkPost(post_data)
   } catch (err) {
     console.error(err)
     prisma.$disconnect
