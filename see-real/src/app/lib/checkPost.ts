@@ -56,23 +56,28 @@ export const checkPost = async (post: Post): Promise<void> => {
             })
         }
         if (issue) {
-            const problem = await prisma.problem.create({
-                data: {
-                    post_id:post.id,
-                    user_id:user.id,
-                    keywords:[issue]
-                }
-            })
-            console.log(problem)
-
-            //skillsにissueを持つuserを取得
             const users = await prisma.user.findMany({
                 where: {
                     skills: {
                         has: issue
                     }
+                },
+                select: {
+                    id: true,
                 }
             })
+
+            const problem = await prisma.problem.create({
+                data: {
+                    post_id:post.id,
+                    user_id:user.id,
+                    keywords:[issue],
+                    related_user:users.map(user=>user.id)
+                }
+            })
+            console.log(problem)
+
+            //skillsにissueを持つuserを取得
 
             console.log(users)
 

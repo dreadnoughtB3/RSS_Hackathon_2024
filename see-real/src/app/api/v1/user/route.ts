@@ -42,7 +42,8 @@ export async function POST(request: NextRequest){
           name: req.name,
           email: req.email,
           company_id: company.id,
-          hashed_password: crypto.createHash('sha256').update(req.password).digest('hex')
+          hashed_password: crypto.createHash('sha256').update(req.password).digest('hex'),
+          skills: req.skills
         }
       })
     } catch (err) {

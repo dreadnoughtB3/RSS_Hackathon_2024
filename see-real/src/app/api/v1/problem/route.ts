@@ -4,15 +4,39 @@ import { prisma } from '@/app/lib/Prisma';
 export async function GET(request: NextRequest){
   prisma.$connect
   console.log("GET /problem")
+  const req = await request.json();
 
-  const data = await prisma.problem.findMany({})
+  try{
+    if(req.type == "getMention") {
+      const data = await prisma.problem.findMany({
+        where: { 
+          related_user: {
+            has: req.user_id
+          }
+        },
+        select: {
+          created_at: true,
+          post_id: true,
+          user_id: true,
+          id: true,
+        },
+      })
+      return NextResponse.json(
+        { data: data },
+        { status: 200 },
+      )
+    }else{
+      const data = await prisma.problem.findMany({})
+      return NextResponse.json(
+        { data: data },
+        { status: 200 },
+      )
+    }
+  }finally{
+    prisma.$disconnect
+  }
 
-  prisma.$disconnect
 
-  return NextResponse.json(
-    { message: data},
-    { status: 200}
-  )
 }
 
 export async function POST(request: NextRequest){

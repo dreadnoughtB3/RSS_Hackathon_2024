@@ -34,7 +34,7 @@ export async function POST(request:NextRequest) {
     const token = await new SignJWT(payload).setProtectedHeader({alg:"HS256"})
     .setExpirationTime("1d")
     .sign(secretkey);
-
+    // localStorage.setItem("user_id", user.id)
     return NextResponse.json({message: "ログイン成功", flag: true, TOKEN: token})
   } catch (error) {
     return NextResponse.json({message:"ログイン失敗", flg:false})

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getMention } from "@/app/lib/getMention";
 import { Send } from 'lucide-react';
 import useAuth from '@/app/lib/useAuth';
 
@@ -70,6 +71,26 @@ export default function Home() {
 
   const [newPost, setNewPost] = useState('');
   const timelineRef = useRef<HTMLDivElement>(null);
+
+//   useEffect(() => {
+//     const fetchMentionData = async () => {
+//       const response = await fetch("/api/v1/", {
+//         method: "GET",
+//         headers: {
+//           Accept: "application/json",
+//           "Content-Type": "application/json",
+//         },
+//       });
+
+//       const jsonData = await response.json();
+//     };
+
+//     fetchMentionData(); // 初回実行
+
+//     const intervalId = setInterval(fetchMentionData, 10000); // 10秒毎に実行
+
+//     return () => clearInterval(intervalId); // クリーンアップ
+// }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

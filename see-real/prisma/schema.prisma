@@ -42,6 +42,7 @@ model Problem {
   post_id String
   user_id String
   keywords String[]
+  related_user String[]
   is_solved Boolean @default(false)
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
