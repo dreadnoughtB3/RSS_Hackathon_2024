@@ -14,15 +14,18 @@ const useAuth = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = localStorage.getItem("token");
 
-      if (!token) {
-        router.push("/login");
+      //1:トークを取得する
+      const TOKEN = localStorage.getItem("token");
+
+      //2:トークンがあるかどうか
+      if (!TOKEN) {
+        router.push("/");
       }
 
       try {
-        const secretKey = new TextEncoder().encode("prisma-supabase");
-        const decodedJWT = await jwtVerify(token, secretKey);
+        const secretKey = new TextEncoder().encode("rss2024-burend-swift");
+        const decodedJWT = await jwtVerify(TOKEN, secretKey);
 
         setLoginUser(decodedJWT.payload);
         
@@ -30,7 +33,6 @@ const useAuth = () => {
         router.push("/login");
       }
     };
-
     checkToken();
   }, [router]);
 

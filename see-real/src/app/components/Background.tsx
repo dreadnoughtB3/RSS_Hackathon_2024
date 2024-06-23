@@ -1,99 +1,55 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
-
-interface NierInspiredBackgroundProps {
-  children: ReactNode;
-}
-
-const NierInspiredBackground: React.FC<NierInspiredBackgroundProps> = ({ children }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-
-    const resizeCanvas = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-    };
-
-    const drawHexagon = (x: number, y: number, size: number) => {
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 3) * i;
-        const nextX = x + size * Math.cos(angle);
-        const nextY = y + size * Math.sin(angle);
-        if (i === 0) ctx.moveTo(nextX, nextY);
-        else ctx.lineTo(nextX, nextY);
-      }
-      ctx.closePath();
-      ctx.stroke();
-    };
-
-    const animate = () => {
-      if (!canvas || !ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Set line style
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.lineWidth = 1;
-
-      // Draw hexagon pattern
-      const size = 30;
-      const rows = Math.ceil(canvas.height / (size * 1.5)) + 1;
-      const cols = Math.ceil(canvas.width / (size * Math.sqrt(3))) + 1;
-
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const x = col * size * Math.sqrt(3) + (row % 2 === 0 ? 0 : size * Math.sqrt(3) / 2);
-          const y = row * size * 1.5;
-          drawHexagon(x, y, size);
-        }
-      }
-
-      // Glitch effect
-      if (Math.random() < 0.05) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.fillRect(
-          Math.random() * canvas.width,
-          Math.random() * canvas.height,
-          Math.random() * 20 + 10,
-          Math.random() * 20 + 10
-        );
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas();
-    animate();
-
-    window.addEventListener('resize', resizeCanvas);
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
+// components/Background.tsx
+const Background: React.FC = () => {
   return (
-    <div className="relative min-h-screen bg-[#2c2c2c] text-[#e0e0e0] overflow-hidden">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none"
-      />
-      <div className="relative z-10">
-        {children}
-      </div>
+    <div className="absolute inset-0 z-0 overflow-hidden">
+      <svg
+        className="w-full h-full"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        {/* Background */}
+        <rect width="1200" height="800" fill="#111827" />
+
+        {/* Circles */}
+        <circle cx="150" cy="150" r="80" fill="#4F46E5" />
+        <circle cx="350" cy="350" r="100" fill="#4F46E5" opacity="0.7" />
+        <circle cx="800" cy="200" r="50" fill="#4F46E5" opacity="0.5" />
+
+        {/* Waves */}
+        <path
+          d="M0,160 C100,200 200,120 300,160 C400,200 500,120 600,160 C700,200 800,120 900,160 C1000,200 1100,120 1200,160 L1200,800 L0,800 Z"
+          fill="#4F46E5"
+          opacity="0.1"
+        />
+
+        <path
+          d="M0,320 C100,360 200,280 300,320 C400,360 500,280 600,320 C700,360 800,280 900,320 C1000,360 1100,280 1200,320 L1200,800 L0,800 Z"
+          fill="#4F46E5"
+          opacity="0.1"
+        />
+
+        {/* Grid */}
+        <defs>
+          <pattern
+            id="grid"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke="#4F46E5"
+              strokeWidth="2"
+              opacity="0.1"
+            />
+          </pattern>
+        </defs>
+        <rect width="1200" height="800" fill="url(#grid)" />
+      </svg>
     </div>
   );
 };
 
-export default NierInspiredBackground;
+export default Background;

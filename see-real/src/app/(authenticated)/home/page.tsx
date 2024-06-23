@@ -1,8 +1,13 @@
+'use client';
+
 import React from 'react';
 import { LogIn, UserPlus } from 'lucide-react';
 import Link from 'next/link';
+import useAuth from '@/app/lib/useAuth';
 
-export default function Home() {
+const HomePage = () => {
+  const token = useAuth();
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h2 className="text-4xl font-bold mb-4 text-gray-800">Welcome to SeeReal</h2>
@@ -27,3 +32,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default HomePage
