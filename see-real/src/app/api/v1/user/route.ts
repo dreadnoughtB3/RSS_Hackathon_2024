@@ -18,27 +18,43 @@ export async function GET(request: NextRequest){
 
 export async function POST(request: NextRequest){
   console.log("POST /user")
-  prisma.$connect
-  const req = await request.json();
 
   try {
-    await prisma.user.create({
-      data: {
-        name: req.name,
-        email: req.email,
-        hashed_password: crypto.createHash('sha256').update(req.pass).digest('hex')
+    prisma.$connect
+    const req = await request.json();
+
+    const company = await prisma.company.findUnique({
+      where:{
+        company_code: req.company_code
       }
-    })
-  } catch (err) {
-    console.error(err)
-    prisma.$disconnect
-    return NextResponse.json({ data: err })
+    });
+    console.log("get company id")
+    if (!company) {
+      return NextResponse.json(
+        { message:"企業コードが存在しません" },
+        { statusText:"Failed" },
+      )
+    }
+    console.log("company id find")
+    try {
+      await prisma.user.create({
+        data: {
+          name: req.name,
+          email: req.email,
+          company_id: company.id,
+          hashed_password: crypto.createHash('sha256').update(req.password).digest('hex')
+        }
+      })
+    } catch (err) {
+      console.error(err)
+      return NextResponse.json({ data: err }, { statusText: "Failed" })
+    }
+
+    return NextResponse.json(
+      { data: req },
+      { statusText: "Success" },
+    )
+  } finally {
+    await prisma.$disconnect
   }
-
-  prisma.$disconnect
-
-  return NextResponse.json(
-    { data: req },
-    { status: 200 },
-  )
 }

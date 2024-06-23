@@ -13,6 +13,7 @@ model User {
   email          String    @unique
   avatar_url     String?
   hashed_password String?
+  company_id String
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
   skills         String[]
@@ -42,6 +43,14 @@ model Problem {
   user_id String
   keywords String[]
   is_solved Boolean @default(false)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+}
+
+model Company {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  company_name String
+  company_code String       @unique
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
 }
